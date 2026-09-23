@@ -10,5 +10,5 @@
 /*.stdout
 /*.png
 /cmake-build-verify/
-/*.err/
-/*.out/
+/*.err
+/*.out
