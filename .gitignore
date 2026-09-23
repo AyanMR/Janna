@@ -1,14 +1,25 @@
-/cmake-build-debug/
-/cmake-build-release/
+# Local IDE and out-of-source build trees
+/cmake-build-*/
 /.vscode/
 /.idea/
-/target.txt/
+
+# Generated diagnostics and compiler artifacts in the project root
 /*.log
-/*.html
-/*.txt
 /*.stderr
 /*.stdout
-/*.png
-/cmake-build-verify/
 /*.err
 /*.out
+/*.obj
+/*.ilk
+/*.pdb
+/*.dmp
+/*.png
+
+# Local fixtures and scratch files produced by smoke runs
+/target.txt
+/*.html
+/*.txt
+
+# Runtime asset cache (the application normally uses <build-dir>/cache)
+/cache/
+/resources/cache/

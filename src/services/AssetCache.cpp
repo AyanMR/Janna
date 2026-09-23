@@ -4,6 +4,7 @@
 #include "services/LcuClient.h"
 
 #include <QCryptographicHash>
+#include <QCoreApplication>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -110,7 +111,23 @@ AssetCache::~AssetCache() = default;
 
 QString AssetCache::cacheRoot()
 {
-    return QDir(QString::fromUtf8(JANNA_PROJECT_ROOT)).filePath("resources/cache");
+    // Keep downloaded assets beside the executable so an out-of-source build
+    // remains self-contained and can be packaged by copying the build folder.
+    // Deployments that cannot write next to the executable can override this
+    // with an absolute path in JANNA_CACHE_DIR.
+    const QString configuredRoot = qEnvironmentVariable("JANNA_CACHE_DIR").trimmed();
+    if (!configuredRoot.isEmpty()) {
+        const QFileInfo configuredInfo(configuredRoot);
+        if (configuredInfo.isAbsolute()) return QDir::cleanPath(configuredRoot);
+        return QDir(QCoreApplication::applicationDirPath()).filePath(configuredRoot);
+    }
+
+    const QString applicationDirectory = QCoreApplication::applicationDirPath();
+    if (!applicationDirectory.isEmpty()) return QDir(applicationDirectory).filePath("cache");
+
+    // This fallback is only relevant to callers created before a Qt
+    // application object exists (for example, a small parser utility).
+    return QDir::current().filePath("cache");
 }
 
 void AssetCache::cacheChampionPortraits(const QList<Champion> &champions)
