@@ -1,0 +1,14 @@
+/cmake-build-debug/
+/cmake-build-release/
+/.vscode/
+/.idea/
+/target.txt/
+/*.log
+/*.html
+/*.txt
+/*.stderr
+/*.stdout
+/*.png
+/cmake-build-verify/
+/*.err/
+/*.out/

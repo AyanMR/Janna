@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/janna/opgg">
+        <file>icons/opgg-back.svg</file>
+    </qresource>
+</RCC>
